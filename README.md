@@ -85,7 +85,7 @@ int x = 10;
 float y = 15.750;
 string txt = "this is a string";
 bool a = true;
-x = y; // x becomes y (type check enforced)
+x = y; // value of x changed to value of y
 ```
 Grouped declaration:
 
@@ -101,49 +101,66 @@ PI = 4; // Error
 
 # More about types
 
+automatic type detection
+
 `autoT x = 5; // sets type to int`
-// import needed:
+
+import needed type-declaretion utilities:
 ```
-dynamic<> b = 20; // can change to any type
-dynamic<> int z = 10; // can change type, originally int
+import 'dynamic\hybrid'
+
+dynamic b = 20; // can change to any type
+dynamic int z = 10; // can change type, originally int
 dynamic<int, float> int a = 10; // only switch between int, float
-hybrid<> y = "it stores all types"; // stores all types simultaneously
+hybrid y = "it stores all types"; // stores all types simultaneously
 hybrid<int, bool> c = true; // holds both types at once
 ```
 
 # Input / Output
+
+Outputting with ascii
 ```
 print.format("text here");` // raw text
 print.format<int>("text here $var_name_here");`  // variable interpolated text
 print.direct("text here $variable_name_here");`  // variable interpolated with implicit type detection
 print.split("text here", var_name, "text here");`  // variables and text splited as arguments
+
 ```
-`prompt.get(&x);`
-`prompt.get<int>(&x);`
-`prompt.read(&x);`
-`prompt.read<string>(&x);`
-`prompt.ask("set the value of x: ", &x);`
+Inputing with ascii
+```
+prompt.get(&x);
+prompt.get<int>(&x);
+prompt.read(&x);
+prompt.read<string>(&x);
+prompt.ask("set the value of x: ", &x);
+
+```
+
+For Unicode outputting, use
+`U_print`
+and
+`U_prompt`
 
 
-# Arithmetic Operators
+### Arithmetic Operators
 
-+ Addition
+-  '+' => Addition
 
-- Subtraction
+-  '-' => Subtraction
 
-* Multiplication
+-  '*' => Multiplication
 
-/ Division
+-  '/' => Division
 
-% Modulus
+-  '%' => Modulus
 
-^ Exponent
+-  '^' => Exponent
 
-# Assignment Operators
+### Assignment Operators
 
-+=, -=, *=, /=, %=
++=, -=, *=, /=, %=, ^=
 
-# Comparison and Boolean Operators
+### Comparison and Boolean Operators
 
 &&, and → AND
 
@@ -155,134 +172,165 @@ print.split("text here", var_name, "text here");`  // variables and text splited
 
 != → Not equal
 
-<, >, <=, >=
+<, >, <=, >=  -> smaller, greater
 
-# other operators
+### other operators
 
-""  -> string
-''  -> library/file name etc.
-[] -> usually index operator
-&   -> reference operator
+- ""  -> string
+- ''  -> library/file name etc.
+- [] -> usually index operator or map key
+- &   -> reference operator
 
 
 # Conditionals
 if/else:
-`int x, y = 5, 10;`
-`if [x < y] {`  // condition can be written without braces
-`    print.format("y is greater");`
-`} elif [x > y] {`
-`    print.format("x is greater");`
-`} else {`
-`    print.format("they are equal");`
-`}`
+```
+int x, y = 5, 10;
+if [x < y] {  // condition can be written without braces
+    print.format("y is greater");
+} elif [x > y] {
+    print.format("x is greater");
+} else {
+    print.format("they are equal");
+}
+```
 
 Switch-case:
-
-`switch(x) {`
-`    case 1: print.format("x is 1"); break;`
-`    case 2: print.format("x is 2"); pass;`
-`    case 0: print.format("x is 0");`
-`    default: print.format("x is unknown");`
-`}`
+```
+switch(x) {
+    case 1: print.format("x is 1"); break;
+    case 2: print.format("x is 2"); pass;
+    case 0: print.format("x is 0");
+    default: print.format("x is unknown");
+}
+```
 
 Match-when:
-
-`match(x)`
-`    when [x > 10] {`
-`        print.format("x is greater than 10");`
-`    } break;`
-`    when [x > 5] {`
-`        print.format("x is greater than 5");`
-`    }`
-`    when [x > 0] {`
-`        print.format("x is greater than 0");`
-`    }`
-`    otherwise {`
-`        print.format("x is unknown");`
-`    }`
-`end`
+```
+match(x)
+    when [x > 10] {
+        print.format("x is greater than 10");
+    } break;
+    when [x > 5] {
+        print.format("x is greater than 5");
+    }
+    when [x > 0] {
+        print.format("x is greater than 0");
+    }
+    otherwise {
+        print.format("x is unknown");
+    }
+end
+```
 
 Alternative ternary:
+".." for else if logic, "..." for else logic
 
-`opt (x > y) x , (x < y) y .. x + y`
+`opt (x > y) x .. (x < y) y ... x + y end`
+
 
 # Loops
+
 while loops
-`while [x != 1] {`
-`    print.format("x");`
-`    x++;`
-`}`
+
+```
+while [x != 1] {
+    print.format("x");
+    x++;
+}
+```
+
 
 until loops
-`until [x == 10] {`
-`   print.d`
-`}`
+```
+until [x == 10] {
+    print.format<int>("$x");
+    x++;
+}
+```
 
-in for loops, if the type of index variable is int no need to write int, it's typed to int by default
-`for[i = 0; i <= 100; i++] {`
-`    print.format<int>("$i");`
-`}`
+
+in for loops, the type of index variable is int by default and can be typed to another by just writing it
+
+```
+for[i = 0; i <= 100; i++] {
+    print.format<int>("$i");
+}
+```
+
 
 foreach loops
-`foreach[int i : array] {`
-`    print.format<int>("$i");`
-`}`
+
+```
+foreach[int i : array] {
+    print.format<int>("$i");
+}
+```
+
 
 # Functions
 
-'func' + func_name + (type + parameter_name) + return_type + {}
+`  'func' + func_name + (type + parameter_name) + return_type + {}  `
 
 Declaration:
 
 `func sum(float x, float y);`
 
 Definition:
+```
+func sum(float x, float y) float {
+    return: x + y;
+}
 
-`func sum(float x, float y) float {`
-`    return: x + y;`
-`}`
+func sample(x, int y) void {} // x can be any type
 
-`func sample(x, int y) void {}` // x can be any type
+func foo(int|float x);  // argument can be either type int or float
 
-`func foo(int|float x);`  // argument can be either type int or float
+```
 
 Variadic example:
 
-`func multiply(int x, float a...) int {`
-`    int result = x;`
-`    for(i = 0; i < a.argscount(); i++) {`
-`        result *= a.index(i);`
-`    }`
-`    return: result;`
-`}`
-
+```
+func multiply(int x, float a...) int {
+    int result = x;
+    for(i = 0; i < a.argscount(); i++) {
+        result *= a.index(i);
+    }
+    return: result;
+}
+```
 
 # Stipules (import needed)
 
-'stipule' + stipule_name + '?' + (type + parameter_name) + {}
+`  'stipule' + stipule_name + '?' + (type + parameter_name) + {}  `
 
 stipule examples:
-`stipule isEven? (int|float x) {`
-`   if [x % 2] == 0 {`
-`       return true;`
-`   }`
-`   return false;`
+```
+stipule isEven? (int|float x) {
+   if [x % 2] == 0 {
+       return true;
+   }
+   return false;
 
-`func main() void{`
-`    int x;`
-`    prompt.get(&x);`  // set x to user input
-`    isEven?(x): { print.format("x is even"); }` // outputs if x is even
-`}`
-
+func main() void{
+    int x;
+    prompt.get(&x);  // set x to user input
+    isEven?(x): { print.format("x is even"); } // outputs if x is even
+}
+```
 
 # Arrays
 an example of 2 dimensional array:
-`array<int> arr { { 3, 10, 15, 20, 30 }, { 4, 9, 12, 27, 38 } };`
-`arr[0][1] = 13;`
-`print.format<int>("$arr[0][1]");`  // 13
-`arr[1][0] = _null;`  // will empty this chunk
-`print.format<int>("$arr[1][0]")`  // empty output
-`arr.empty?() { print.format("array is empty"); }`  // would output if 'arr' array was really empty
+```
+array<int> arr { { 3, 10, 15, 20, 30 }, { 4, 9, 12, 27, 38 } };
+arr[0][1] = 13;
+print.format<int>("$arr[0][1]");  // 13
+arr[1][0] = _null;  // will empty this chunk
+print.format<int>("$arr[1][0]")  // empty output
+arr.empty?() { print.format("array is empty"); }  // would output if 'arr' array was really empty
+
+```
+
 
 # Class/OOP in Zecta
 Classes contain members, classvars, methods, static methods
@@ -305,43 +353,47 @@ unit to static unitvar or static method => ":"
 `parent_unit::child_unit.unitvar`
 
 Unit examples:
+```
+unit subject {
+    unit Physics;
+    unit Chemisty;
+    unit Biology;
 
-`unit subject {`
-`    unit Physics;`
-`    unit Chemisty;`
-`    unit Biology;`
+    int GPA;
 
-`    int GPA;`
+    setGPA(f8 GPA) void{
+        this.GPA = GPA
+        if[GPA > 5] GPA = 5
+        if[GPA < 0] GPA = 0;
+    }
+    getGPA() f8{
+        return this.GPA;  // this is not optional even if it refers to unitvar
+    }
+}
 
-`    setGPA(f8 GPA) void{`
-`        this.GPA = GPA`
-`        if[GPA > 5] GPA = 5`
-`        if[GPA < 0] GPA = `
-`    }`
-`    getGPA`
-`}`
-
-`func main() void{`
-`print.format<int>()`
-`}`
+func main() void{
+    print.format<int>("$subject.Physics.getGPA()");
+}
+```
 
 for modifying all unitvars at the same time, make this unitvar static so parent unit can modify all child units at the same time
-`unit Parent{`
-`    unit child1`
-`    unit child2`
+```
+unit Parent{
+    unit child1
+    unit child2
 
-`    static int x;`
-`}`
+    static int x;
+}
 
-`func main() void{`
-`    child1.x = 5`
-`    child2.x = 15`
-`    Parent:x = 10`
-`    print.format<int>("$Parent:x");  // 10`
-`    print.format<int>("$Parent::child1.x");  // 10`
-`    print.format<int>("$Parent::child1.x");  // 10`
-`}`
-
+func main() void{
+    child1.x = 5
+    child2.x = 15
+    Parent:x = 10
+    print.format<int>("$Parent:x");  // 10
+    print.format<int>("$Parent::child1.x");  // 10
+    print.format<int>("$Parent::child1.x");  // 10
+}
+```
 
 # Modules
 Modules can contain variables, functions, classes, units and library imported in
@@ -349,34 +401,38 @@ Modules used in core Zecta for creating same-named libraries
 
 notations:
 module to variable => ':'
-module to function => ':'
+module to function => '::'
 module to class => '::'
 module to unit => '::'
 
+```
+# program main
 
-`# program main`
+module myModule{
+    func printf(string text) { print.format<string>("${text}"); }
+}
 
-`module myModule{`
-`    func printf(string text) { print.format<string>("${text}"); }`
-`}`
-
-`func main() void{`
-`    myModule:printf("sample");`
-`}`
+func main() void{
+    myModule:printf("sample");
+}
+```
 
 
 # importing libraries/files
+
 `import 'math' ` import math library
 `import 'random' as rand ` imports random library as rand
 `import_file 'myfile' ` imports user defined file
 
 all libraries accessed via their name
-`func main() void{`
-`    print.format<int64>(math::PI);`
-`}`
-
+```
+func main() void{
+    print.format<int64>(math::PI);
+}
+```
 
 # File headers
+
 all files in project should contain file headers, but secondary file headers are optional
 `# program main`  // compiler runs this file first, accesible by other files via 'import_file'
 `# program myProgram`  // 'myProgram' file's header 
@@ -425,12 +481,40 @@ strvar.findend(substring)  // returns ending index of finded substring
 strvar.search(substring)  // returns count of substrings inside string
 
 # Useful Libraries
-`math`, `time`, `memory`, `dynamic\hybrid`, `custom`, `enable\disable`, `tensor`,
+`math`, `time`, `memory`, `dynamic\hybrid`, `custom`, `tensor`,
 `stipule`, `obj`, `Zgame`, `SDL2`
 
 Math library:
-math variables/constants -> math::PI, 
-math classes/types       -> math::real, math::degree, math::radian
-math functions/methods   -> 
+variables/constants -> math:PI, math:Euler, math:TAU
+classes/types       -> math::real, math::degree, math::radian, math::vec2, math::vec3
+functions/methods   -> math::root(), math::sin(), math::cos(), math::tan(), math::atan(),
+                       math::min(), math::max(), math::lerp()
+
+Time library:
+variables/constants -> time:zecta_time
+classes/types       -> time::sec, time::ms, time::timer, time::clock
+functions/methods   -> time:wait(), time::clock.now(), time::timer timer.start(), timer.stop()
+
+Memory library:
+variables/constants -> memory:NULL, memory:PAGE_SIZE
+classes/types       -> memory::raw, memory::ptr, memory::alloc
+functions/methods   -> memory::size(), memory::bitsize(), memory::alloc.bytes(),
+                       memory::free(), memory::trace()
+
+
+dynamic\hybrid library
+variables/constants -> dynamic:NULL, hybrid:NULL
+classes/types       -> dynamic<>, hybrid<>, hybrid
+functions/methods   -> dynamic::typeid(), hybrid::cast(), hybrid::reset(), hybrid::view()
+
+
+Custom lib utilities:
+```
+// safe macros
+@custom('macro') dowhile <=> until
+@custom('type') number <=> math::real
+@custom('func') print(string arg) <=> print.format(arg)
+```
+
 
 
