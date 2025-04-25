@@ -2,19 +2,23 @@
 
 Powerful as C++🔥, fast as C👨‍💻, Basic as Zig🎯
 
+
 # Introduction
 
 - Zecta is a Modern mid-level compiled langauge with high performance and flexibility
 - Zecta tries to be give easier low-level and memory access with memory-safety and without garbage-collector
 - Zecta provides neither verbose nor bloat syntax, but packs enough features
-- Zecta will be perfect for Game Development and performance critical tasks with better readablity
+- Zecta will be perfect for Game Development and performance-critical tasks with better readablity
+
 ```
 # program main
 
 func main() void{
     print.format("Hello, Zecta");
 }
+
 ```
+
 - Every line of command statement called actions
 - Every condition containers called conditions
 - Semicolons are optional after actions, unless there is more than one action
@@ -32,23 +36,11 @@ U_string - Unicode text, shrinkable. Fixed-size: U_string8, ..., U_string512
 
 bool - true/false in 1 byte. Can also use 1/0, True/False
 
-autoT - exclusive type holder, stores only one type at a time
-
 void - represents void(nothing)
 
 # Other types
 
 func - function
-
-stipule - stipules, needs import
-
-class - class
-
-unit - unit
-
-module - module
-
-enum - enum
 
 array - array
 
@@ -58,9 +50,19 @@ matrix - 2D matrix
 
 tensor - 3D+ tensor, needs import
 
+class - class
+
 map - map
 
 set - set
+
+unit - unit
+
+module - module
+
+enum - enum
+
+stipule - stipules, needs import
 
 obj - object, needs import
 
