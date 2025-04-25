@@ -48,6 +48,8 @@ unit - unit
 
 module - module
 
+enum - enum
+
 array - array
 
 vector - 1D vector
@@ -67,13 +69,13 @@ obj - object, needs import
 
 Declaration & definition:
 
-type_name variable_name = value
+`type_name variable_name = value`
 
-type_name variable_name { value }
+`type_name variable_name { value }`
 
 Placeholder for empty value:
 
-_null
+`_null`
 
 Variables can't change type, but can change value:
 ```
@@ -99,20 +101,21 @@ PI = 4; // Error
 
 `autoT x = 5; // sets type to int`
 // import needed:
-`dynamic<> b = 20; // can change to any type`
-`dynamic<> int z = 10; // can change type, originally int`
-`dynamic<int, float> int a = 10; // only switch between int, float`
-`hybrid<> y = "it stores all types"; // stores all types simultaneously`
-`hybrid<int, bool> c = true; // holds both types at once`
-
+```
+dynamic<> b = 20; // can change to any type
+dynamic<> int z = 10; // can change type, originally int
+dynamic<int, float> int a = 10; // only switch between int, float
+hybrid<> y = "it stores all types"; // stores all types simultaneously
+hybrid<int, bool> c = true; // holds both types at once
+```
 
 # Input / Output
-
-`print.format("text here");` // raw text
-`print.format<int>("text here $var_name_here");`  // variable interpolated text
-`print.direct("text here $variable_name_here");`  // variable interpolated with implicit type detection
-`print.split("text here", var_name, "text here");`  // variables and text splited as arguments
-
+```
+print.format("text here");` // raw text
+print.format<int>("text here $var_name_here");`  // variable interpolated text
+print.direct("text here $variable_name_here");`  // variable interpolated with implicit type detection
+print.split("text here", var_name, "text here");`  // variables and text splited as arguments
+```
 `prompt.get(&x);`
 `prompt.get<int>(&x);`
 `prompt.read(&x);`
