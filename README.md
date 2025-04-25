@@ -8,17 +8,17 @@ Powerful as C++🔥, fast as C👨‍💻, Basic as Zig🎯
 - Zecta tries to be give easier low-level and memory access with memory-safety and without garbage-collector
 - Zecta provides neither verbose nor bloat syntax, but packs enough features
 - Zecta will be perfect for Game Development and performance critical tasks with better readablity
+```
+# program main
 
-`# program main`
-
-`func main() void{`
-`    print.format("Hello, Zecta");`
-`}`
-
-Every line of command statement called actions
-Every condition containers called conditions
-Semicolons are optional after actions, unless there is more than one action
-Zecta has improved feature controlabilty
+func main() void{
+    print.format("Hello, Zecta");
+}
+```
+- Every line of command statement called actions
+- Every condition containers called conditions
+- Semicolons are optional after actions, unless there is more than one action
+- Zecta has improved feature controlabilty
 
 # Primitive types
 
@@ -33,6 +33,8 @@ U_string - Unicode text, shrinkable. Fixed-size: U_string8, ..., U_string512
 bool - true/false in 1 byte. Can also use 1/0, True/False
 
 autoT - exclusive type holder, stores only one type at a time
+
+void - represents void(nothing)
 
 # Other types
 
@@ -74,22 +76,24 @@ Placeholder for empty value:
 _null
 
 Variables can't change type, but can change value:
-
-`int x = 10;`
-`float y = 15.750;`
-`string txt = "this is a string";`
-`bool a = true;`
-`x = y; // x becomes y (type check enforced)`
-
+```
+int x = 10;
+float y = 15.750;
+string txt = "this is a string";
+bool a = true;
+x = y; // x becomes y (type check enforced)
+```
 Grouped declaration:
 
 `int x, y = 10, 15;`
 
 # Constants
 
-`const PI = 3.141592653;`
-`PI = 4; // Error`
-
+Constants can not change neither type nor value 
+```
+const PI = 3.141592653;
+PI = 4; // Error
+```
 
 # More about types
 
