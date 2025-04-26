@@ -137,9 +137,7 @@ prompt.ask("set the value of x: ", &x);
 ```
 
 For Unicode outputting, use
-`U_print`
-and
-`U_prompt`
+`U_print`  and  `U_prompt`
 
 
 ### Arithmetic Operators
@@ -180,6 +178,28 @@ and
 - ''  -> library/file name etc.
 - [] -> usually index operator or map key
 - &   -> reference operator
+
+
+# Type conversions and typeof()
+```
+float x = 5.255;
+
+// typeof function returns type object
+typeof(x) y = 10.25;  // creates a variable with same type of x variable
+// for returning type with string
+print.format(typename(x));  // string output: float
+
+print.format(typecast<int>(x));             // casts x safely, not all types to cast supported
+print.format(dynamic_typecast<string>(x));  // casts x less safely, more types supported than "typecast"
+
+string z = stringfy(x);  // this excepts everything and stringizes everything lol
+// So lines below gives same result
+print.format(stringify(typeof(x)));
+print.format(typename(x));
+```
+
+So many type conversions are available as methods which we will discuss after;
+
 
 
 # Conditionals
@@ -275,30 +295,61 @@ foreach[int i : array] {
 Declaration:
 
 `func sum(float x, float y);`
+or
+`func sum(float x, float y) float;`
 
 Definition:
 ```
-func sum(float x, float y) float {
+func sum(float x, y) float {  // no need to write float twice
     return: x + y;
 }
 
-func sample(x, int y) void {} // x can be any type
-
-func foo(int|float x);  // argument can be either type int or float
+func sample(int|float x);  // argument can be either type int or float
 
 ```
 
-Variadic example:
+Return types and main exit code:
 
+return type of a function comes after parameters paranthesis and before scope begins:
+`func sample() void{ print.format("sample function") }`
+main return types are: void, int, float, string, bool. we will also discuss return definers (const, override etc.)
+
+When program finishes, it returns a integer value to the operating system. it is 0 by default but we can handle it by ourselves:
+```
+func main() void{
+    system.exit(0);  // says "there is not problems in program" to OS
+}
+```
+Usual meanings of exit codes
+0 => Success
+1 => General error
+2 => Misuse of shell commands
+... => Depends on OS/program
+
+Variadic functions:
+Variadic function arguments are stored in the type "func_arr" which is similar to an array and programmer can not access
 ```
 func multiply(int x, float a...) int {
     int result = x;
-    for(i = 0; i < a.argscount(); i++) {
+    for(i = 0; i < a.count(); i++) {
         result *= a.index(i);
     }
     return: result;
 }
 ```
+
+Generic functions:
+
+These functions gave us an opportinity to choose the type and/or handle types better in function definition.
+
+```
+func sample<T>() void { if[typeof(T) == typeobj.int] print.format("generic type is integer") }
+
+func main() void{
+    sample<int>();  // output: generic type is integer
+}
+```
+
 
 # Stipules (import needed)
 
@@ -419,12 +470,13 @@ func main() void{
 
 
 # importing libraries/files
+```
+import 'math' // imports math library
+import 'random' as rand  // imports random library as rand
+import_file 'myfile' // imports user defined file
+```
 
-`import 'math' ` import math library
-`import 'random' as rand ` imports random library as rand
-`import_file 'myfile' ` imports user defined file
-
-all libraries accessed via their name
+most of the libraries accessed via their name
 ```
 func main() void{
     print.format<int64>(math::PI);
@@ -434,24 +486,30 @@ func main() void{
 # File headers
 
 all files in project should contain file headers, but secondary file headers are optional
-`# program main`  // compiler runs this file first, accesible by other files via 'import_file'
-`# program myProgram`  // 'myProgram' file's header 
+```
+# program main  // compiler runs this file first
+# program myProgram  // 'myProgram' file's header, accesible by other files via 'import_file'
+``` 
 
 secondary file headers
-`# public program main`  // visible by other files without any import
-`# private program main`  // neither visible nor importable
-`# import_guard`  // prevents multi-import
+```
+# public program main  // visible by other files without any import
+# private program main  // neither visible nor importable
+# import_guard  // prevents multi-import
+```
 
+# variable function/stipules
 
-# variable function/method/stipules
-sizeof(var)  // returns size of variable in bytes
-typeof(var)  // returns type name of variable
-cast<>(var)  // staticly casts a type of variable
-const?(var)  // checks if variable is constant
-immut?(var)  // checks if the variable has fixed type
+sizeof(var)      returns size of variable in bytes
+typeof(var)      returns type name of variable
+typecast<>(var)  staticly casts a type of variable
+const?(var)      checks if variable is constant
+immut?(var)      checks if the variable has fixed type
+
 
 # Number types
 there are some methods for variables that is int, float or their extensions.
+
 shared functions
 sqrt(x)
 gcd(x, y...)
