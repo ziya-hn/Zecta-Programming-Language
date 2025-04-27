@@ -539,6 +539,7 @@ strvar.findend(substring)  // returns ending index of finded substring
 strvar.search(substring)  // returns count of substrings inside string
 
 # Useful Libraries
+
 `math`, `time`, `memory`, `dynamic\hybrid`, `custom`, `tensor`,
 `stipule`, `obj`, `Zgame`, `SDL2`
 
@@ -572,7 +573,63 @@ Custom lib utilities:
 @custom('macro') dowhile <=> until
 @custom('type') number <=> math::real
 @custom('func') print(string arg) <=> print.format(arg)
+
+// Zecta Feature Control
+@enable 'Uppercase-Global'
+@enable 'Uppercase-Classname'
+
+@disable 'Conditional-Bracket'
+@enable 'Conditional-paranthesis'
 ```
+
+
+# Standart IO library (contains FileIO)
+
+```
+# program main
+
+import 'stdio'
+
+func main() void
+{
+    int x;
+
+    stdio.out("ascii output");  // stdio.Uout() for unicode output
+    stdio.in(&x);    // stdio.Uin() for unicode input
+    stdio.err("output error message");  // stdio.Uerr() for unicode output
+
+    file.open('firstfile.txt');   // open existing file. else, create a file
+    file.open('secondfile.txt', 'file2')  // open file as 'file2'
+    file.close('firstfile.txt')  //
+
+    if [file2.open?()]{
+        file2.write("writing first line of file2");
+        string8 s; file2.read(1, s);  // read and store 1st line of file2 in s
+        file2.close()
+    }
+
+
+    // file Cursor
+    file.open('file3.txt', file3);
+    file3.move_cursor(15);  // move cursor 15 characters right
+    file3.move_cursor(-10);  // move cursor 10 characters left
+
+    file3.read()
+    
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
