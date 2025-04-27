@@ -583,7 +583,7 @@ Custom lib utilities:
 ```
 
 
-# Standart IO library (contains FileIO)
+# Standart IO library
 
 ```
 # program main
@@ -594,31 +594,107 @@ func main() void
 {
     int x;
 
+    stdio.call_console();
     stdio.out("ascii output");  // stdio.Uout() for unicode output
     stdio.in(&x);    // stdio.Uin() for unicode input
     stdio.err("output error message");  // stdio.Uerr() for unicode output
+    stdio.exit_console();
+```
 
-    file.open('firstfile.txt');   // open existing file. else, create a file
-    file.open('secondfile.txt', 'file2')  // open file as 'file2'
-    file.close('firstfile.txt')  //
 
-    if [file2.open?()]{
-        file2.write("writing first line of file2");
-        string8 s; file2.read(1, s);  // read and store 1st line of file2 in s
+# File writing/reading
+
+```txt
+    
+    file.create('firstfile.txt');  // create non-existing .txt file
+    file.open('firstfile.txt');   // open existing .txt file
+    file.close('firstfile.txt')  // close file
+    file.open('firstfile.txt', 'file1')  // open file as 'file1'
+      //
+
+    file1.open?() {  // stipule that checkes if file is open
+        file2.write("writing first line of file2"); newl;
+        string8 s = file2.readchars(0, 1);  // read and store 1st character of file2 in s variable
         file2.close()
     }
 
 
     // file Cursor
-    file.open('file3.txt', file3);
-    file3.move_cursor(15);  // move cursor 15 characters right
-    file3.move_cursor(-10);  // move cursor 10 characters left
+    file.open('file1.txt', file1);
+    file1.cursor.get_row();  // get count of rows above the the cursor
+    file1.cursor.get_column();  // get count of columns behind cursor
+    file1.cursor.set_row();  // set count of rows above the the cursor
+    file1.cursor.set_column();  // set count of columns behind cursor
+    file1.cursor.setposition(2, 4);  // set row and columns location of cursor
+    file1.cursor.move(3, 6);  // add values of arguments to current position
 
-    file3.read()
+    // Read function
+    string1024 txt;
+    txt = file1.read()  // read text in row of cursor and columns which comes after cursor
+    txt = file1.read_row(0)  // read first row
+    txt = file1.read_column(0)  // read first column
+    txt = file1.read(1, 5)  // read first row and fifth column
+    txt = file1.read_area(1, 10, 5, 12);  // read row 1 to ro 5 and column 10 to 12
+    txt = file1.read_range(1, 10, 5, 12);  // read row 1 to ro 10 and column 5 to 12
     
 }
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
