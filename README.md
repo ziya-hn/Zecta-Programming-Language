@@ -1,4 +1,4 @@
-# ZECTA PROGRAMMING LANGUAGE
+# ZECTA PROGRAMMING LANGUAGE DOCUMENTATION
 
 Powerful as C++🔥, fast as C👨‍💻, Basic as Zig🎯
 
@@ -19,24 +19,25 @@ func main() void{
 
 ```
 
-- Every line of command statement called actions
 - Every condition containers called conditions
-- Semicolons are optional after actions, unless there is more than one action
-- Zecta has improved feature controlabilty
+- Semicolons are strictly required after actions
+- Zecta has advanced feature controlabilty
 
 # Primitive types
 
-int - 32-bit integer. Others: int8, int16, int64, int128
 
-float - 64-bit floating-point number. Others: f16, f32, f128, f256
 
-string - ASCII text, shrinkable. Fixed-size: string8, string16, ..., string512
+int - 32-bit integer.
 
-U_string - Unicode text, shrinkable. Fixed-size: U_string8, ..., U_string512
+float - 64-bit floating-point number.
 
-bool - true/false in 1 byte. Can also use 1/0, True/False
+char - 1 byte ASCII character.
 
-void - represents void(nothing)
+string - shrinkable ASCII text.
+
+bool - true/false stored in 1 byte.
+
+void - represents void(nothing).
 
 # Other types
 
@@ -67,11 +68,29 @@ stipule - stipules, needs import
 obj - object, needs import
 
 
+# Sub-types
+
+### Sub-ints:
+    int8, int16, int64, int128 ...   >> integer types with different size 
+    uint, uint8, uint32, uint64 ...  >> unsigned integer types
+    int_min, int_max, int_mid ...    >> compiler picks size according to performance 
+
+### Sub-floats:
+    f8, f16, f32, f128 ...                  >> float types with different size 
+    Ufloat, Ufloat8, Ufloat16, Ufloat32...  >> unsigned float types
+    f_min, f_max, f_mid ...                 >> compiler picks size according to performance 
+
+### Sub- Char & Strings:
+    unichar, ustring                  >> unicode encoded char/strings
+    str8, str64, str256, str1024 ...  >> limited-size and faster strings
+
+
+
 # Variables
 
 Declaration & definition:
 
-`type_name variable_name = value`
+`type_name variable_name = value;`
 
 `type_name variable_name { value }`
 
@@ -198,7 +217,7 @@ print.format(stringify(typeof(x)));
 print.format(typename(x));
 ```
 
-So many type conversions are available as methods which we will discuss after;
+So many type conversions are available as methods which will discussed after;
 
 
 
@@ -206,7 +225,7 @@ So many type conversions are available as methods which we will discuss after;
 if/else:
 ```
 int x, y = 5, 10;
-if [x < y] {  // condition can be written without braces
+if [x < y] {  // Zecta using braces for conditions to not mixing expressional paranthesis with conditional paranthesis
     print.format("y is greater");
 } elif [x > y] {
     print.format("x is greater");
@@ -217,17 +236,17 @@ if [x < y] {  // condition can be written without braces
 
 Switch-case:
 ```
-switch(x) {
-    case 1: print.format("x is 1"); break;
-    case 2: print.format("x is 2"); pass;
-    case 0: print.format("x is 0");
-    default: print.format("x is unknown");
+switch[x] {
+    case 1  :>  print.format("x is 1"); break;
+    case 2  :>  print.format("x is 2"); pass;
+    case 0  :>  print.format("x is 0");
+    default :>  print.format("x is unknown");
 }
 ```
 
 Match-when:
 ```
-match(x)
+match[x]
     when [x > 10] {
         print.format("x is greater than 10");
     } break;
@@ -240,7 +259,7 @@ match(x)
     otherwise {
         print.format("x is unknown");
     }
-end
+end   // Yes matches end with end keyword for clarity beetwen curly braces
 ```
 
 Alternative ternary:
@@ -269,6 +288,16 @@ until [x == 10] {
 }
 ```
 
+do-while loops
+First do statement inside scope then check the condition
+
+```
+doWhile [x <= 10] {
+    print.format<int>("$x");
+    x++;
+}
+```
+
 
 in for loops, the type of index variable is int by default and can be typed to another by just writing it
 
@@ -279,10 +308,10 @@ for[i = 0; i <= 100; i++] {
 ```
 
 
-foreach loops
+for-each loops
 
 ```
-foreach[int i : array] {
+foreach [int i : array] {
     print.format<int>("$i");
 }
 ```
@@ -343,7 +372,9 @@ Generic functions:
 These functions gave us an opportinity to choose the type and/or handle types better in function definition.
 
 ```
-func sample<T>() void { if[typeof(T) == typeobj.int] print.format("generic type is integer") }
+func sample<T>() void{
+    if[typeof(T) == typeobj::int] print.format("generic type is integer")
+}
 
 func main() void{
     sample<int>();  // output: generic type is integer
@@ -397,7 +428,7 @@ Units are specific type in zecta, can be used as simplified and easily inherited
 They are classified objects. they can inherit like a class(parent/child). They have variables called unitvars and functions called
 
 notaitons:
-unit to child unit => "::"
+unit to child unit => "."
 unit to unitvar or method => "."
 unit to static unitvar or static method => ":"
 
@@ -447,12 +478,12 @@ func main() void{
 ```
 
 # Modules
-Modules can contain variables, functions, classes, units and library imported in
+Modules can contain variables, functions, classes, units and libraries imported in
 Modules used in core Zecta for creating same-named libraries
 
 notations:
-module to variable => ':'
-module to function => '::'
+module to variable => '.'
+module to function => ':'
 module to class => '::'
 module to unit => '::'
 
@@ -474,12 +505,13 @@ func main() void{
 import 'math' // imports math library
 import 'random' as rand  // imports random library as rand
 import_file 'myfile' // imports user defined file
+import_next 'myheader'  // import the next matching header in the path order
 ```
 
 most of the libraries accessed via their name
 ```
 func main() void{
-    print.format<int64>(math::PI);
+    print.format<int64>(math:PI);
 }
 ```
 
@@ -595,9 +627,9 @@ func main() void
     int x;
 
     stdio.call_console();
-    stdio.out("ascii output");  // stdio.Uout() for unicode output
-    stdio.in(&x);    // stdio.Uin() for unicode input
-    stdio.err("output error message");  // stdio.Uerr() for unicode output
+    stdio.out("ascii output");  // stdio.wout() for unicode output
+    stdio.in(&x);    // stdio.win() for unicode input
+    stdio.err("output error message");  // stdio.werr() for unicode output
     stdio.exit_console();
 ```
 
