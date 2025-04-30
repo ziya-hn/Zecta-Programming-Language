@@ -83,7 +83,9 @@ obj - object, needs import
 ### Sub- Char & Strings:
     unichar, ustring                  >> unicode encoded char/strings
     str8, str64, str256, str1024 ...  >> limited-size and faster strings
-
+    strdec      >> this string sub-type sets size once when declared only
+    strinit     >> string sub-type that sets size once, when initialized 
+    strdef      >> this sub-type sets size once, when defined
 
 
 # Variables
@@ -199,12 +201,12 @@ For Unicode outputting, use
 - &   -> reference operator
 
 
-# Type conversions and typeof()
+# Type conversions and typeof[]
 ```
 float x = 5.255;
 
-// typeof function returns type object
-typeof(x) y = 10.25;  // creates a variable with same type of x variable
+// typeof[] returns type object
+typeof[x] y = 10.25;  // creates a variable with same type of x variable
 // for returning type with string
 print.format(typename(x));  // string output: float
 
@@ -325,7 +327,7 @@ Declaration:
 
 `func sum(float x, float y);`
 or
-`func sum(float x, float y) float;`
+`func sum(float x, float y) -> float;`
 
 Definition:
 ```
@@ -334,14 +336,31 @@ func sum(float x, y) float {  // no need to write float twice
 }
 
 func sample(int|float x);  // argument can be either type int or float
+```
 
+Flexibilities and Strategies:
+
+can declare/define two same-named functions if they have different type of arguments:
+```
+func sample(int x, int y);
+func sample(int x, float y);
+func sample(int x, int y2);  // but make sure the type is different and not varied name doesnt required
+```
+
+You want to get any type as an argument? less safer but 'any' type can be useful:
+```
+func sample(any x, any y) void{
+    if[typename(x) == "int"  &&  typename(y) == "int"] {
+        print.format("Both x and y are integer");
+    }
+}
 ```
 
 Return types and main exit code:
 
 return type of a function comes after parameters paranthesis and before scope begins:
 `func sample() void{ print.format("sample function") }`
-main return types are: void, int, float, string, bool. we will also discuss return definers (const, override etc.)
+main return types are: void, int, float, string, bool, auto(automatically chooses return type).
 
 When program finishes, it returns a integer value to the operating system. it is 0 by default but we can handle it by ourselves:
 ```
@@ -356,7 +375,9 @@ Usual meanings of exit codes
 ... => Depends on OS/program
 
 Variadic functions:
-Variadic function arguments are stored in the type "func_arr" which is similar to an array and programmer can not access
+Variadic function arguments are stored in the type "variadic_arr" which is similar to an array but specially designed for arguments
+func_arr type checks bounds and is performant but not accesible by programmer
+
 ```
 func multiply(int x, float a...) int {
     int result = x;
@@ -366,6 +387,7 @@ func multiply(int x, float a...) int {
     return: result;
 }
 ```
+
 
 Generic functions:
 
@@ -380,6 +402,7 @@ func main() void{
     sample<int>();  // output: generic type is integer
 }
 ```
+
 
 
 # Stipules (import needed)
