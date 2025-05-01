@@ -96,9 +96,8 @@ Declaration & definition:
 
 `type_name variable_name { value }`
 
-Placeholder for empty value:
-
-`_null`
+Placeholder variable for discarded value:
+`_`
 
 Variables can't change type, but can change value:
 ```
@@ -522,6 +521,38 @@ func main() void{
 }
 ```
 
+The use keyword in Zecta is used to import modules or specific symbols into the current scope safely
+Basic Module Import:
+
+```
+# program main
+
+import 'math'
+
+use 'math'  // everything inside math library can now be accessed directly.
+func main(){
+    int128 pi = PI;  // instead of writing "math:" explicitly
+    int128 Pi = math:PI;  // no problem if we would write math explicitly
+}
+
+```
+
+
+
+2. Aliased Module Import
+
+use graphics2d as gfx
+Imports the graphics2d module with a short alias gfx.
+
+Useful for long or nested module names.
+
+
+gfx.draw("square")
+3. Selective Symbol Import
+
+use math { sin, cos, tan }
+Imports only selected symbols (sin, cos, tan) into the current scope.
+
 
 # importing libraries/files
 ```
@@ -537,6 +568,7 @@ func main() void{
     print.format<int64>(math:PI);
 }
 ```
+
 
 # File headers
 
