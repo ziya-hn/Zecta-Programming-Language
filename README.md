@@ -1,27 +1,27 @@
-# ZECTA PROGRAMMING LANGUAGE DOCUMENTATION
+# Z PROGRAMMING LANGUAGE DOCUMENTATION
 
 Powerful as C++🔥, fast as C👨‍💻, Basic as Zig🎯
 
 
 # Introduction
 
-- Zecta is a Modern mid-level compiled langauge with high performance and flexibility
-- Zecta tries to be give easier low-level and memory access with memory-safety and without garbage-collector
-- Zecta provides neither verbose nor bloat syntax, but packs enough features
-- Zecta will be perfect for Game Development and performance-critical tasks with better readablity
+- Z is a Modern mid-level compiled langauge with high performance and flexibility
+- Z tries to be give easier low-level and memory access with memory-safety and without garbage-collector
+- Z provides neither verbose nor bloat syntax, but packs enough features
+- Z will be perfect for Game Development and performance-critical tasks with better readablity
 
 ```
 # program main
 
 func main() void{
-    print.format("Hello, Zecta");
+    print.format("Hello, Z");
 }
 
 ```
 
 - Every condition containers called conditions
 - Semicolons are strictly required after actions
-- Zecta has advanced feature controlabilty
+- Z has advanced feature controlabilty
 
 # Primitive types
 
@@ -150,8 +150,8 @@ Inputing with ascii
 ```
 prompt.get(&x);
 prompt.get<int>(&x);
-prompt.read(&x);
-prompt.read<string>(&x);
+prompt.readline(&x);
+prompt.readline<string>(&x);
 prompt.ask("set the value of x: ", &x);
 
 ```
@@ -200,33 +200,56 @@ For Unicode outputting, use
 - &   -> reference operator
 
 
-# Type conversions and typeof[]
+# Type conversions and @typeof()
 ```
 float x = 5.255;
 
-// typeof[] returns type object
-typeof[x] y = 10.25;  // creates a variable with same type of x variable
+int y = @int(x);  // will cast x to int and define y's value to x safely
+// another ways to type-casting
+print.format(typecast<int>(x));             // Safe, but limited
+print.format(dynamic_typecast<string>(x));  // Less safe, supports more types
+
+
+// typeof returns type object
+@typeof(x) y = 10.25;  // creates a variable with same type of x variable
+
 // for returning type with string
 print.format(typename(x));  // string output: float
 
-print.format(typecast<int>(x));             // casts x safely, not all types to cast supported
-print.format(dynamic_typecast<string>(x));  // casts x less safely, more types supported than "typecast"
-
-string z = stringfy(x);  // this excepts everything and stringizes everything lol
+string z = @stringify(x);  // this excepts everything and makes string everything lol
 // So lines below gives same result
 print.format(stringify(typeof(x)));
 print.format(typename(x));
 ```
 
-So many type conversions are available as methods which will discussed after;
+Other type conversions are available as methods which will be discussed after.
+
+# Z Standart Library
+- In Z, most of the time, imported libraries reached via modules which typically being same name as library name
+- Because libraries codes put in to the module, so we only can access via module name
+- in Z we can access std-lib (standart library) features (like most of the other languages) with namespace too
+- All of the Standart library codes is in the module named "z"
+- But unlike some languages its optional in Z since it is for avoiding naming collisions in large projects
+    How to enable std-lib access only via 'z' module:
+  ```
+  # program main
+  #\ Zstdlib
+
+  import math
+  
+  func main() void{
+      z::math::real x = 10.5;  // Verbose but evades colliding with others
+  }
+  ```
 
 
 
 # Conditionals
+
 if/else:
 ```
 int x, y = 5, 10;
-if [x < y] {  // Zecta using braces for conditions to not mixing expressional paranthesis with conditional paranthesis
+if [x < y] {  // Z using braces for conditions to not mixing expressional paranthesis with conditional paranthesis
     print.format("y is greater");
 } elif [x > y] {
     print.format("x is greater");
@@ -263,10 +286,13 @@ match[x]
 end   // Yes matches end with end keyword for clarity beetwen curly braces
 ```
 
-Alternative ternary:
-".." for else if logic, "..." for else logic
+Alternative ternary in Z:
+it can nest into expressions(if cant) like some other langauges
+begins with opt keyword and ends with end keyword for clarity
 
 `opt (x > y) x .. (x < y) y ... x + y end`
+
+".." for else if logic, "..." for else logic
 
 
 # Loops
@@ -436,7 +462,7 @@ arr.empty?() { print.format("array is empty"); }  // would output if 'arr' array
 ```
 
 
-# Class/OOP in Zecta
+# Class/OOP in Z
 Classes contain members, classvars, methods, static methods
 
 notaitons:
@@ -446,7 +472,7 @@ Class to classvar or method => "."
 
 
 # Units
-Units are specific type in zecta, can be used as simplified and easily inherited OOP structure
+Units are specific type in z, can be used as simplified and easily inherited OOP structure
 They are classified objects. they can inherit like a class(parent/child). They have variables called unitvars and functions called
 
 notaitons:
@@ -501,7 +527,7 @@ func main() void{
 
 # Modules
 Modules can contain variables, functions, classes, units and libraries imported in
-Modules used in core Zecta for creating same-named libraries
+Modules used in core Z for creating same-named libraries
 
 notations:
 module to variable => '.'
@@ -521,7 +547,7 @@ func main() void{
 }
 ```
 
-The use keyword in Zecta is used to import modules or specific symbols into the current scope safely
+The use keyword in Z is used to import modules or specific symbols into the current scope safely
 Basic Module Import:
 
 ```
@@ -539,19 +565,25 @@ func main(){
 
 
 
-2. Aliased Module Import
+# Module and type aliases
 
-use graphics2d as gfx
-Imports the graphics2d module with a short alias gfx.
+### Module aliases
+`use graphics2d as gfx`
+Imports the graphics2d module with alias gfx.
 
-Useful for long or nested module names.
-
-
-gfx.draw("square")
-3. Selective Symbol Import
-
-use math { sin, cos, tan }
+`use sin, cos, tan from 'math'`
 Imports only selected symbols (sin, cos, tan) into the current scope.
+
+`next graphics2d as gfx`
+Imports the graphics2d module with alias gfx to the next scope only
+
+`next sin, cos, tan from 'math'`
+Imports only selected symbols (sin, cos, tan) to the next scope only
+
+
+### Type-aliases
+`use number as math::real` type alias for math::real class
+
 
 
 # importing libraries/files
@@ -625,9 +657,34 @@ strvar.find(substring)  // returns beginning index of finded substring
 strvar.findend(substring)  // returns ending index of finded substring
 strvar.search(substring)  // returns count of substrings inside string
 
+
+
+Feature controlabilty in Z
+```
+// safe macros
+~~customize ('macro') dowhile <=> until
+~~customize ('type_alias') number <=> math::real
+~~customize ('macrofunc') print(string arg) <=> print.format(arg)
+
+// Z Feature Control
+~~diagnostic (enable) 'Uppercase-Global'   // this will affect whole file
+~~diagnostic (enable) 'Uppercase-Classname' ~~end  // it's affect is beetwen the line below diagnostic and the line above "~~end" given
+
+~~diagnostic (disable) 'Conditional-Bracket'
+~~diagnostic (enable) 'Conditional-paranthesis'
+
+// Cheking Z version control
+~~version (log)  // log Z version
+~~version (string Zversion)  // create a variable and store in it (version stored in a string typically)
+```
+Note: in the line of diagnostics we can not append code(like C macros) since we can not put semicolon after them
+      in the same line. 
+
+
+
 # Useful Libraries
 
-`math`, `time`, `memory`, `dynamic\hybrid`, `custom`, `tensor`,
+`math`, `time`, `memory`, `dynamic\hybrid`, `tensor`,
 `stipule`, `obj`, `Zgame`, `SDL2`
 
 Math library:
@@ -637,7 +694,7 @@ functions/methods   -> math::root(), math::sin(), math::cos(), math::tan(), math
                        math::min(), math::max(), math::lerp()
 
 Time library:
-variables/constants -> time:zecta_time
+variables/constants -> time:z_time
 classes/types       -> time::sec, time::ms, time::timer, time::clock
 functions/methods   -> time:wait(), time::clock.now(), time::timer timer.start(), timer.stop()
 
@@ -654,20 +711,6 @@ classes/types       -> dynamic<>, hybrid<>, hybrid
 functions/methods   -> dynamic::typeid(), hybrid::cast(), hybrid::reset(), hybrid::view()
 
 
-Custom lib utilities:
-```
-// safe macros
-@custom('macro') dowhile <=> until
-@custom('type') number <=> math::real
-@custom('func') print(string arg) <=> print.format(arg)
-
-// Zecta Feature Control
-@enable 'Uppercase-Global'
-@enable 'Uppercase-Classname'
-
-@disable 'Conditional-Bracket'
-@enable 'Conditional-paranthesis'
-```
 
 
 # Standart IO library
@@ -727,72 +770,3 @@ func main() void
 }
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
