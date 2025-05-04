@@ -1,6 +1,7 @@
-# Zecta PROGRAMMING LANGUAGE DOCUMENTATION
+# ZECTA PROGRAMMING LANGUAGE DOCUMENTATION
 
 Powerful as C++🔥, fast as C👨‍💻, Basic as Zig🎯
+
 
 
 # Introduction
@@ -10,18 +11,22 @@ Powerful as C++🔥, fast as C👨‍💻, Basic as Zig🎯
 - Zecta provides neither verbose nor bloat syntax, but packs enough features
 - Zecta will be perfect for Game Development and performance-critical tasks with better readablity
 
+
 ```
 # program main
 
 func main() void{
-    print.format("Hello, Zecta");
+    print.format("Hello, Zecta\n");
 }
 
 ```
 
+
 - Every condition containers called conditions
 - Semicolons are strictly required after actions
 - Zecta has advanced feature controlabilty
+
+
 
 # Primitive types
 
@@ -86,6 +91,43 @@ obj - object, needs import
     strdec      >> this string sub-type sets size once when declared only
     strinit     >> string sub-type that sets size once, when initialized 
     strdef      >> this sub-type sets size once, when defined
+
+# Comments
+There is 5 type of comments in zecta
+
+1. Basic Comments
+```
+    // single line comments
+    /* this is multi line comment */
+```
+
+2. Documentation Comments
+```
+    /// doc comment
+    /** multi line doc comment **/
+```
+
+3. Syntax Purpose	Example
+```
+//! TODO:	Marks pending work.	//! TODO: Optimize this fn.
+//? DEBUG:	Debugging hints.	//? DEBUG: Check bounds here.
+```
+
+4. comment Regions
+- can nest all type of comments
+- Regions start and end with triple backticks (```)
+
+example of region comments:
+```
+```region  // optional region name
+
+/* nested comments */
+ 
+ending of region1```
+```
+
+6. Shebang Support
+```--[ /usr/bin/env zecta ]--```
 
 
 # Variables
@@ -652,9 +694,9 @@ strvar.search(substring)  // returns count of substrings inside string
 Feature controlabilty in Zecta
 ```
 // safe macros
-~~customize ('macro') dowhile <=> until
-~~customize ('type_alias') number <=> math::real
-~~customize ('macrofunc') print(string arg) <=> print.format(arg)
+~~custom ('macro') dowhile <=> until
+~~custom ('type_alias') number <=> math::real
+~~custom ('macrofunc') print(string arg) <=> print.format(arg)
 
 // Zecta Feature Control
 ~~diagnostic (enable) 'Uppercase-Global'   // this will affect whole file
@@ -665,7 +707,7 @@ Feature controlabilty in Zecta
 
 // Checking Zecta version control
 ~~version (log)  // log Zecta version
-~~version (string ZectaVersion)  // create a variable and store in it (version stored in a string typically)
+~~version (string ZectaVersion)  // create a variable and store in it
 ```
 Note: in the line of diagnostics we can not append code(like C macros) since we can not put semicolon after them
       in the same line. 
@@ -719,7 +761,7 @@ func main() void
 
 # File writing/reading
 
-```txt
+```
     
     file.create('firstfile.txt');  // create non-existing .txt file
     file.open('firstfile.txt');   // open existing .txt file
@@ -732,8 +774,10 @@ func main() void
         string8 s = file2.readchars(0, 1);  // read and store 1st character of file2 in s variable
         file2.close()
     }
+```
 
-    // file Cursor
+File Cursor
+```
     file.open('file1.txt', file1);
     file1.cursor.get_row();  // get count of rows above the the cursor
     file1.cursor.get_column();  // get count of columns behind cursor
@@ -741,8 +785,10 @@ func main() void
     file1.cursor.set_column();  // set count of columns behind cursor
     file1.cursor.setposition(2, 4);  // set row and columns location of cursor
     file1.cursor.move(3, 6);  // add values of arguments to current position
+```
 
-    // Read function
+Reading
+```
     string1024 txt;
     txt = file1.read()  // read text in row of cursor and columns which comes after cursor
     txt = file1.read_row(0)  // read first row
