@@ -1,27 +1,27 @@
-# Z PROGRAMMING LANGUAGE DOCUMENTATION
+# Zecta PROGRAMMING LANGUAGE DOCUMENTATION
 
 Powerful as C++🔥, fast as C👨‍💻, Basic as Zig🎯
 
 
 # Introduction
 
-- Z is a Modern mid-level compiled langauge with high performance and flexibility
-- Z tries to be give easier low-level and memory access with memory-safety and without garbage-collector
-- Z provides neither verbose nor bloat syntax, but packs enough features
-- Z will be perfect for Game Development and performance-critical tasks with better readablity
+- Zecta is a Modern mid-level compiled langauge with high performance and flexibility
+- Zecta tries to be give easier low-level and memory access with memory-safety and without garbage-collector
+- Zecta provides neither verbose nor bloat syntax, but packs enough features
+- Zecta will be perfect for Game Development and performance-critical tasks with better readablity
 
 ```
 # program main
 
 func main() void{
-    print.format("Hello, Z");
+    print.format("Hello, Zecta");
 }
 
 ```
 
 - Every condition containers called conditions
 - Semicolons are strictly required after actions
-- Z has advanced feature controlabilty
+- Zecta has advanced feature controlabilty
 
 # Primitive types
 
@@ -132,7 +132,7 @@ import 'dynamic\hybrid'
 dynamic b = 20; // can change to any type
 dynamic int z = 10; // can change type, originally int
 dynamic<int, float> int a = 10; // only switch between int, float
-hybrid y = "it stores all types"; // stores all types simultaneously
+hybrid y = "it stores all types simultaneously"; // stores all types simultaneously
 hybrid<int, bool> c = true; // holds both types at once
 ```
 
@@ -224,12 +224,12 @@ print.format(typename(x));
 
 Other type conversions are available as methods which will be discussed after.
 
-# Z Standart Library
-- In Z, most of the time, imported libraries reached via modules which typically being same name as library name
+# Zecta Standart Library
+- In Zecta, most of the time, imported libraries reached via modules which typically being same name as library name
 - Because libraries codes put in to the module, so we only can access via module name
-- in Z we can access std-lib (standart library) features (like most of the other languages) with namespace too
+- in Zecta we can access std-lib (standart library) features (like most of the other languages) with namespace too
 - All of the Standart library codes is in the module named "z"
-- But unlike some languages its optional in Z since it is for avoiding naming collisions in large projects
+- But unlike some languages its optional in Zecta since it is for avoiding naming collisions in large projects
     How to enable std-lib access only via 'z' module:
   ```
   # program main
@@ -243,13 +243,12 @@ Other type conversions are available as methods which will be discussed after.
   ```
 
 
-
 # Conditionals
 
 if/else:
 ```
 int x, y = 5, 10;
-if [x < y] {  // Z using braces for conditions to not mixing expressional paranthesis with conditional paranthesis
+if [x < y] {  // Zecta using braces for conditions to not mixing expressional paranthesis with conditional paranthesis
     print.format("y is greater");
 } elif [x > y] {
     print.format("x is greater");
@@ -286,7 +285,7 @@ match[x]
 end   // Yes matches end with end keyword for clarity beetwen curly braces
 ```
 
-Alternative ternary in Z:
+Alternative ternary in Zecta:
 it can nest into expressions(if cant) like some other langauges
 begins with opt keyword and ends with end keyword for clarity
 
@@ -306,7 +305,6 @@ while [x != 1] {
 }
 ```
 
-
 until loops
 ```
 until [x == 10] {
@@ -325,7 +323,6 @@ doWhile [x <= 10] {
 }
 ```
 
-
 in for loops, the type of index variable is int by default and can be typed to another by just writing it
 
 ```
@@ -334,7 +331,6 @@ for[i = 0; i <= 100; i++] {
 }
 ```
 
-
 for-each loops
 
 ```
@@ -342,7 +338,6 @@ foreach [int i : array] {
     print.format<int>("$i");
 }
 ```
-
 
 # Functions
 
@@ -413,7 +408,6 @@ func multiply(int x, float a...) int {
 }
 ```
 
-
 Generic functions:
 
 These functions gave us an opportinity to choose the type and/or handle types better in function definition.
@@ -427,8 +421,6 @@ func main() void{
     sample<int>();  // output: generic type is integer
 }
 ```
-
-
 
 # Stipules (import needed)
 
@@ -462,20 +454,20 @@ arr.empty?() { print.format("array is empty"); }  // would output if 'arr' array
 ```
 
 
-# Class/OOP in Z
+# Class/OOP in Zecta
 Classes contain members, classvars, methods, static methods
 
-notaitons:
+notations:
 Class to child Class => "::"
 Class to static methods => ":"
 Class to classvar or method => "."
 
 
 # Units
-Units are specific type in z, can be used as simplified and easily inherited OOP structure
+Units are specific type in Zecta, can be used as simplified and easily inherited OOP structure
 They are classified objects. they can inherit like a class(parent/child). They have variables called unitvars and functions called
 
-notaitons:
+notations:
 unit to child unit => "."
 unit to unitvar or method => "."
 unit to static unitvar or static method => ":"
@@ -525,9 +517,10 @@ func main() void{
 }
 ```
 
+
 # Modules
 Modules can contain variables, functions, classes, units and libraries imported in
-Modules used in core Z for creating same-named libraries
+Modules used in core Zecta for creating same-named libraries
 
 notations:
 module to variable => '.'
@@ -547,7 +540,7 @@ func main() void{
 }
 ```
 
-The use keyword in Z is used to import modules or specific symbols into the current scope safely
+The use keyword in Zecta is used to import modules or specific symbols into the current scope safely
 Basic Module Import:
 
 ```
@@ -562,7 +555,6 @@ func main(){
 }
 
 ```
-
 
 
 # Module and type aliases
@@ -602,6 +594,7 @@ func main() void{
 ```
 
 
+
 # File headers
 
 all files in project should contain file headers, but secondary file headers are optional
@@ -624,7 +617,6 @@ typeof(var)      returns type name of variable
 typecast<>(var)  staticly casts a type of variable
 const?(var)      checks if variable is constant
 immut?(var)      checks if the variable has fixed type
-
 
 # Number types
 there are some methods for variables that is int, float or their extensions.
@@ -657,30 +649,26 @@ strvar.find(substring)  // returns beginning index of finded substring
 strvar.findend(substring)  // returns ending index of finded substring
 strvar.search(substring)  // returns count of substrings inside string
 
-
-
-Feature controlabilty in Z
+Feature controlabilty in Zecta
 ```
 // safe macros
 ~~customize ('macro') dowhile <=> until
 ~~customize ('type_alias') number <=> math::real
 ~~customize ('macrofunc') print(string arg) <=> print.format(arg)
 
-// Z Feature Control
+// Zecta Feature Control
 ~~diagnostic (enable) 'Uppercase-Global'   // this will affect whole file
 ~~diagnostic (enable) 'Uppercase-Classname' ~~end  // it's affect is beetwen the line below diagnostic and the line above "~~end" given
 
 ~~diagnostic (disable) 'Conditional-Bracket'
 ~~diagnostic (enable) 'Conditional-paranthesis'
 
-// Cheking Z version control
-~~version (log)  // log Z version
-~~version (string Zversion)  // create a variable and store in it (version stored in a string typically)
+// Checking Zecta version control
+~~version (log)  // log Zecta version
+~~version (string ZectaVersion)  // create a variable and store in it (version stored in a string typically)
 ```
 Note: in the line of diagnostics we can not append code(like C macros) since we can not put semicolon after them
       in the same line. 
-
-
 
 # Useful Libraries
 
@@ -710,9 +698,6 @@ variables/constants -> dynamic:NULL, hybrid:NULL
 classes/types       -> dynamic<>, hybrid<>, hybrid
 functions/methods   -> dynamic::typeid(), hybrid::cast(), hybrid::reset(), hybrid::view()
 
-
-
-
 # Standart IO library
 
 ```
@@ -729,8 +714,8 @@ func main() void
     stdio.in(&x);    // stdio.win() for unicode input
     stdio.err("output error message");  // stdio.werr() for unicode output
     stdio.exit_console();
+}
 ```
-
 
 # File writing/reading
 
@@ -747,7 +732,6 @@ func main() void
         string8 s = file2.readchars(0, 1);  // read and store 1st character of file2 in s variable
         file2.close()
     }
-
 
     // file Cursor
     file.open('file1.txt', file1);
